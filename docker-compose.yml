@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  nodejs-app:
+    container_name: rss_crawler
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./src:/app/src  # 소스 코드만 실시간 반영
+      # node_modules 볼륨 마운트 제거
+    environment:
+      - NODE_ENV=development
+      - TZ=Asia/Seoul
+    command: ["npx", "nodemon", "--legacy-watch", "src/index.js"]
